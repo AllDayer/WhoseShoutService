@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoseShoutWebService", "WhoseShoutWebService\WhoseShoutWebService.csproj", "{56EB20C2-118F-486E-9A69-2DAA01BA378B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoseShoutWebService.Tests", "WhoseShoutWebService.Tests\WhoseShoutWebService.Tests.csproj", "{919DDAF3-F14C-4119-A006-44EDF0C14D3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56EB20C2-118F-486E-9A69-2DAA01BA378B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56EB20C2-118F-486E-9A69-2DAA01BA378B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56EB20C2-118F-486E-9A69-2DAA01BA378B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56EB20C2-118F-486E-9A69-2DAA01BA378B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{919DDAF3-F14C-4119-A006-44EDF0C14D3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{919DDAF3-F14C-4119-A006-44EDF0C14D3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{919DDAF3-F14C-4119-A006-44EDF0C14D3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{919DDAF3-F14C-4119-A006-44EDF0C14D3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
