@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201705132202406_initial.Designer.cs">
       <DependentUpon>201705132202406_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705150939434_AddEmail.cs" />
+    <Compile Include="Migrations\201705150939434_AddEmail.Designer.cs">
+      <DependentUpon>201705150939434_AddEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -319,6 +323,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705132202406_initial.resx">
       <DependentUpon>201705132202406_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705150939434_AddEmail.resx">
+      <DependentUpon>201705150939434_AddEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

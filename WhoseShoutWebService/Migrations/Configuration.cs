@@ -29,6 +29,7 @@ namespace WhoseShoutWebService.Migrations
             {
                 ID = new Guid("d9c91004-3994-4bb4-a703-267904985126"),
                 UserName = "Tristan",
+                Email = "t@t.com",
                 FacebookID = "11111111111111111",
                 ShoutGroups = new List<ShoutGroup>(),
                 Shouts = new List<Shout>()
@@ -37,6 +38,7 @@ namespace WhoseShoutWebService.Migrations
             {
                 ID = new Guid("c9c9f88b-853b-46e5-a70a-fad212fab6b0"),
                 UserName = "Norman",
+                Email = "n@n.com",
                 TwitterID = "12519262411111111111",
                 ShoutGroups = new List<ShoutGroup>(),
                 Shouts = new List<Shout>()
@@ -45,6 +47,7 @@ namespace WhoseShoutWebService.Migrations
             {
                 ID = new Guid("840a9916-ca86-4575-9025-6adb2abfa389"),
                 UserName = "Elspeth",
+                Email = "elspethelf@hotmail.com",
                 FacebookID = "11111111111111112",
                 ShoutGroups = new List<ShoutGroup>(),
                 Shouts = new List<Shout>()

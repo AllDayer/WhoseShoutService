@@ -59,6 +59,55 @@ namespace WhoseShoutWebService.Controllers
             return Ok(shoutUser);
         }
 
+        // GET: api/ShoutUsers/5
+        [ResponseType(typeof(ShoutUserDto))]
+        public IHttpActionResult GetShoutUserByEmail(string email)
+        {
+            ShoutUser shoutUser = db.ShoutUsers.FirstOrDefault(x => x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+            if (shoutUser == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(shoutUser);
+        }
+
+        // PATCH: api/ShoutUsers/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PatchShoutUser(Guid id, ShoutUser shoutUser)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != shoutUser.ID)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(shoutUser).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ShoutUserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         // PUT: api/ShoutUsers/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutShoutUser(Guid id, ShoutUser shoutUser)

@@ -184,7 +184,7 @@ namespace WhoseShoutWebService.Controllers
             var shoutUsersForGroup = new List<ShoutUser>();
             foreach (var sh in shoutGroupDto.Users)
             {
-                var u = db.ShoutUsers.FirstOrDefault(s => s.ID == sh.ID);
+                var u = db.ShoutUsers.FirstOrDefault(x => x.Email == sh.Email);
                 if (u != null)
                 {
                     shoutGro.ShoutUsers.Add(u);
@@ -197,7 +197,7 @@ namespace WhoseShoutWebService.Controllers
                 }
                 else
                 {
-                    var newUser = new ShoutUser() { UserName = sh.UserName, ID = Guid.NewGuid() };
+                    var newUser = new ShoutUser() { ID = Guid.NewGuid(), Email = sh.Email };
                     if (newUser.ShoutGroups == null)
                     {
                         newUser.ShoutGroups = new List<ShoutGroup>();
@@ -206,7 +206,6 @@ namespace WhoseShoutWebService.Controllers
                     shoutGro.ShoutUsers.Add(newUser);
 
                     db.ShoutUsers.Add(newUser);
-                    //shoutUsersForGroup.Add(newUser);
                 }
             }
 
