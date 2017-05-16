@@ -37,7 +37,7 @@ namespace WhoseShoutWebService.Controllers
             return Ok(shoutUser);
         }
 
-        // GET: api/ShoutUsers/5
+        // GET: api/ShoutUsers?socialId={socialId}&authType={authType}
         [ResponseType(typeof(ShoutUserDto))]
         public IHttpActionResult GetShoutUserBySocial(string socialId, AuthType authType)
         {
@@ -59,7 +59,7 @@ namespace WhoseShoutWebService.Controllers
             return Ok(shoutUser);
         }
 
-        // GET: api/ShoutUsers/5
+        // GET: api/ShoutUsers/email={email}
         [ResponseType(typeof(ShoutUserDto))]
         public IHttpActionResult GetShoutUserByEmail(string email)
         {

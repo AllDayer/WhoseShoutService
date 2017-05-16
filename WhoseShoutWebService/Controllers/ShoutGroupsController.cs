@@ -184,7 +184,17 @@ namespace WhoseShoutWebService.Controllers
             var shoutUsersForGroup = new List<ShoutUser>();
             foreach (var sh in shoutGroupDto.Users)
             {
-                var u = db.ShoutUsers.FirstOrDefault(x => x.Email == sh.Email);
+                ShoutUser u = null;
+
+                if (sh.ID != null && sh.ID != Guid.Empty)
+                {
+                    u = db.ShoutUsers.FirstOrDefault(x => x.ID == sh.ID);
+                }
+                else if (u == null && !String.IsNullOrEmpty(sh.Email))
+                {
+                    u = db.ShoutUsers.FirstOrDefault(x => x.Email.Equals(sh.Email, StringComparison.OrdinalIgnoreCase));
+                }
+
                 if (u != null)
                 {
                     shoutGro.ShoutUsers.Add(u);
