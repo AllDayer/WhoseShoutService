@@ -62,6 +62,7 @@ namespace WhoseShoutWebService.Controllers
                                   Name = s.Name,
                                   Shouts = (from shout in db.Shouts
                                             where s.Shouts.Any(sh => sh.ID == shout.ID)
+                                            orderby shout.PurchaseTimeUtc descending
                                             select new ShoutDto()
                                             {
                                                 Cost = shout.Cost,

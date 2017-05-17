@@ -43,12 +43,15 @@ namespace WhoseShoutWebService.Controllers
         {
             ShoutUser shoutUser = null;
 
-            switch (authType)
+            if (!String.IsNullOrEmpty(socialId))
             {
-                case AuthType.Facebook:
-                    shoutUser = db.ShoutUsers.FirstOrDefault(x => x.FacebookID == socialId);
-                    break;
+                switch (authType)
+                {
+                    case AuthType.Facebook:
+                        shoutUser = db.ShoutUsers.FirstOrDefault(x => x.FacebookID == socialId);
+                        break;
 
+                }
             }
 
             if (shoutUser == null)
@@ -56,14 +59,29 @@ namespace WhoseShoutWebService.Controllers
                 return NotFound();
             }
 
-            return Ok(shoutUser);
+            ShoutUserDto ret = new ShoutUserDto()
+            {
+                ID = shoutUser.ID,
+                Email = shoutUser.Email,
+                UserName = shoutUser.UserName,
+                AuthType = AuthType.Facebook,
+                ShoutSocialID = shoutUser.FacebookID
+                
+            };
+
+            return Ok(ret);
         }
 
         // GET: api/ShoutUsers/email={email}
         [ResponseType(typeof(ShoutUserDto))]
         public IHttpActionResult GetShoutUserByEmail(string email)
         {
-            ShoutUser shoutUser = db.ShoutUsers.FirstOrDefault(x => x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            ShoutUser shoutUser = null;
+
+            if (!String.IsNullOrEmpty(email))
+            {
+                db.ShoutUsers.FirstOrDefault(x => x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            }
 
             if (shoutUser == null)
             {
