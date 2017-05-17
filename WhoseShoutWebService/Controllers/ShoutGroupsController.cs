@@ -81,9 +81,7 @@ namespace WhoseShoutWebService.Controllers
                                                              where zx.ShoutGroup.ID == s.ID &&
                                                                    zx.ShoutUser.ID == u.ID
                                                              select zx).Count()
-                                                             //,
                                            }).ToList()
-
                               };
 
             return shoutGroups;
@@ -101,15 +99,9 @@ namespace WhoseShoutWebService.Controllers
                                  ID = s.ID,
                                  Category = s.Category,
                                  Name = s.Name,
-                                 Users = (from u in db.ShoutUsers
-                                          where s.ShoutUsers.Any(sh => sh.ID == u.ID)
-                                          select new ShoutUserDto()
-                                          {
-                                              UserName = u.UserName,
-                                              ID = u.ID
-                                          }).ToList(),
                                  Shouts = (from shout in db.Shouts
                                            where s.Shouts.Any(sh => sh.ID == shout.ID)
+                                           orderby shout.PurchaseTimeUtc descending
                                            select new ShoutDto()
                                            {
                                                Cost = shout.Cost,
@@ -117,8 +109,18 @@ namespace WhoseShoutWebService.Controllers
                                                PurchaseTimeUtc = shout.PurchaseTimeUtc,
                                                ShoutUserName = shout.ShoutUser.UserName,
                                                ShoutGroupName = shout.ShoutGroup.Name
-                                           }).ToList()
-
+                                           }).ToList(),
+                                 Users = (from u in db.ShoutUsers
+                                          where s.ShoutUsers.Any(sh => sh.ID == u.ID)
+                                          select new ShoutUserDto()
+                                          {
+                                              UserName = u.UserName,
+                                              ID = u.ID,
+                                              ShoutCount = (from zx in db.Shouts
+                                                            where zx.ShoutGroup.ID == s.ID &&
+                                                                  zx.ShoutUser.ID == u.ID
+                                                            select zx).Count()
+                                          }).ToList()
                              };
             if (shoutGroup == null)
             {
