@@ -185,32 +185,32 @@ namespace WhoseShoutWebService.Controllers
             };
 
             var shoutUsersForGroup = new List<ShoutUser>();
-            foreach (var sh in shoutGroupDto.Users)
+            foreach (var shoutGroupUser in shoutGroupDto.Users)
             {
-                ShoutUser u = null;
+                ShoutUser foundUser = null;
 
-                if (sh.ID != null && sh.ID != Guid.Empty)
+                if (shoutGroupUser.ID != null && shoutGroupUser.ID != Guid.Empty)
                 {
-                    u = db.ShoutUsers.FirstOrDefault(x => x.ID == sh.ID);
+                    foundUser = db.ShoutUsers.FirstOrDefault(x => x.ID == shoutGroupUser.ID);
                 }
-                else if (u == null && !String.IsNullOrEmpty(sh.Email))
+                else if (foundUser == null && !String.IsNullOrEmpty(shoutGroupUser.Email))
                 {
-                    u = db.ShoutUsers.FirstOrDefault(x => x.Email.Equals(sh.Email, StringComparison.OrdinalIgnoreCase));
+                    foundUser = db.ShoutUsers.FirstOrDefault(x => x.Email.Equals(shoutGroupUser.Email, StringComparison.OrdinalIgnoreCase));
                 }
 
-                if (u != null)
+                if (foundUser != null)
                 {
-                    shoutGro.ShoutUsers.Add(u);
-                    if (u.ShoutGroups == null)
+                    shoutGro.ShoutUsers.Add(foundUser);
+                    if (foundUser.ShoutGroups == null)
                     {
-                        u.ShoutGroups = new List<ShoutGroup>();
+                        foundUser.ShoutGroups = new List<ShoutGroup>();
                     }
-                    u.ShoutGroups.Add(shoutGro);
-                    shoutUsersForGroup.Add(u);
+                    foundUser.ShoutGroups.Add(shoutGro);
+                    shoutUsersForGroup.Add(foundUser);
                 }
                 else
                 {
-                    var newUser = new ShoutUser() { ID = Guid.NewGuid(), Email = sh.Email };
+                    var newUser = new ShoutUser() { ID = Guid.NewGuid(), Email = shoutGroupUser.Email, UserName = shoutGroupUser.UserName };
                     if (newUser.ShoutGroups == null)
                     {
                         newUser.ShoutGroups = new List<ShoutGroup>();

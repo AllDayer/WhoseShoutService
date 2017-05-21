@@ -80,7 +80,7 @@ namespace WhoseShoutWebService.Controllers
 
             if (!String.IsNullOrEmpty(email))
             {
-                db.ShoutUsers.FirstOrDefault(x => x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+                shoutUser = db.ShoutUsers.FirstOrDefault(x => x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
             }
 
             if (shoutUser == null)
