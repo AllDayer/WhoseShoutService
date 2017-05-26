@@ -242,6 +242,10 @@
     <Compile Include="Migrations\201705150939434_AddEmail.Designer.cs">
       <DependentUpon>201705150939434_AddEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705262224227_trackcost.cs" />
+    <Compile Include="Migrations\201705262224227_trackcost.Designer.cs">
+      <DependentUpon>201705262224227_trackcost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -326,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705150939434_AddEmail.resx">
       <DependentUpon>201705150939434_AddEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705262224227_trackcost.resx">
+      <DependentUpon>201705262224227_trackcost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

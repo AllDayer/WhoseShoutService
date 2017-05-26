@@ -27,6 +27,7 @@ namespace WhoseShoutWebService.Controllers
                                   ID = s.ID,
                                   Category = s.Category,
                                   Name = s.Name,
+                                  TrackCost = s.TrackCost,
                                   Users = (from u in db.ShoutUsers
                                            where s.ShoutUsers.Any(sh => sh.ID == u.ID)
                                            select new ShoutUserDto()
@@ -60,6 +61,7 @@ namespace WhoseShoutWebService.Controllers
                                   ID = s.ID,
                                   Category = s.Category,
                                   Name = s.Name,
+                                  TrackCost = s.TrackCost,
                                   Shouts = (from shout in db.Shouts
                                             where s.Shouts.Any(sh => sh.ID == shout.ID)
                                             orderby shout.PurchaseTimeUtc descending
@@ -99,6 +101,7 @@ namespace WhoseShoutWebService.Controllers
                                  ID = s.ID,
                                  Category = s.Category,
                                  Name = s.Name,
+                                 TrackCost = s.TrackCost,
                                  Shouts = (from shout in db.Shouts
                                            where s.Shouts.Any(sh => sh.ID == shout.ID)
                                            orderby shout.PurchaseTimeUtc descending
@@ -133,17 +136,71 @@ namespace WhoseShoutWebService.Controllers
         // PUT: api/ShoutGroups/<guid>
         // Not tested
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutShoutGroup(Guid id, ShoutGroup shoutGroup)
+        public IHttpActionResult PutShoutGroup(Guid id, ShoutGroupDto shoutGroupDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != shoutGroup.ID)
+            if (id != shoutGroupDto.ID)
             {
                 return BadRequest();
             }
+
+            ShoutGroup shoutGroup = db.ShoutGroups.FirstOrDefault(x => x.ID == id);
+
+
+            shoutGroup.Name = shoutGroupDto.Name;
+            shoutGroup.TrackCost = shoutGroupDto.TrackCost;
+            shoutGroup.Category = shoutGroupDto.Category;
+
+            db.ShoutGroups.Attach(shoutGroup);
+
+            //var shoutUsersForGroup = new List<ShoutUser>();
+            //foreach (var shoutGroupUser in shoutGroupDto.Users)
+            //{
+            //    ShoutUser foundUser = null;
+
+            //    if (shoutGroupUser.ID != null && shoutGroupUser.ID != Guid.Empty)
+            //    {
+            //        foundUser = db.ShoutUsers.FirstOrDefault(x => x.ID == shoutGroupUser.ID);
+            //    }
+            //    else if (foundUser == null && !String.IsNullOrEmpty(shoutGroupUser.Email))
+            //    {
+            //        foundUser = db.ShoutUsers.FirstOrDefault(x => x.Email.Equals(shoutGroupUser.Email, StringComparison.OrdinalIgnoreCase));
+            //    }
+
+            //    if (foundUser != null)
+            //    {
+            //        shoutGroup.ShoutUsers.Add(foundUser);
+            //        if (foundUser.ShoutGroups == null)
+            //        {
+            //            foundUser.ShoutGroups = new List<ShoutGroup>();
+            //        }
+            //        //foundUser.ShoutGroups.Add(shoutGroup);
+            //        //foundUser.ShoutGroups.FirstOrDefault(x => x.ID ==)
+            //        shoutUsersForGroup.Add(foundUser);
+            //    }
+            //    else
+            //    {
+            //        var newUser = new ShoutUser() { ID = Guid.NewGuid(), Email = shoutGroupUser.Email, UserName = shoutGroupUser.UserName };
+            //        if (newUser.ShoutGroups == null)
+            //        {
+            //            newUser.ShoutGroups = new List<ShoutGroup>();
+            //        }
+            //        newUser.ShoutGroups.Add(shoutGroup);
+            //        shoutGroup.ShoutUsers.Add(newUser);
+
+            //        db.ShoutUsers.Add(newUser);
+            //    }
+            //}
+
+            //foreach (var sh in shoutUsersForGroup)
+            //{
+            //    db.ShoutUsers.Attach(sh);
+            //}
+
 
             db.Entry(shoutGroup).State = EntityState.Modified;
 
@@ -179,6 +236,7 @@ namespace WhoseShoutWebService.Controllers
             {
                 ID = shoutGroupDto.ID,
                 Name = shoutGroupDto.Name,
+                TrackCost = shoutGroupDto.TrackCost,
                 Category = shoutGroupDto.Category,
                 Shouts = new List<Shout>(),
                 ShoutUsers = new List<ShoutUser>()
