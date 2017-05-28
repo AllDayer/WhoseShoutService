@@ -246,6 +246,10 @@
     <Compile Include="Migrations\201705262224227_trackcost.Designer.cs">
       <DependentUpon>201705262224227_trackcost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705281214166_avatar.cs" />
+    <Compile Include="Migrations\201705281214166_avatar.Designer.cs">
+      <DependentUpon>201705281214166_avatar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -333,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705262224227_trackcost.resx">
       <DependentUpon>201705262224227_trackcost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705281214166_avatar.resx">
+      <DependentUpon>201705281214166_avatar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -33,6 +33,7 @@ namespace WhoseShoutWebService.Controllers
                                            select new ShoutUserDto()
                                            {
                                                UserName = u.UserName,
+                                               AvatarUrl = u.AvatarUrl,
                                                ID = u.ID
                                            }).ToList(),
                                   Shouts = (from shout in db.Shouts
@@ -79,6 +80,7 @@ namespace WhoseShoutWebService.Controllers
                                            {
                                                UserName = u.UserName,
                                                ID = u.ID,
+                                               AvatarUrl = u.AvatarUrl,
                                                ShoutCount = (from zx in db.Shouts
                                                              where zx.ShoutGroup.ID == s.ID &&
                                                                    zx.ShoutUser.ID == u.ID
@@ -119,6 +121,7 @@ namespace WhoseShoutWebService.Controllers
                                           {
                                               UserName = u.UserName,
                                               ID = u.ID,
+                                              AvatarUrl = u.AvatarUrl,
                                               ShoutCount = (from zx in db.Shouts
                                                             where zx.ShoutGroup.ID == s.ID &&
                                                                   zx.ShoutUser.ID == u.ID

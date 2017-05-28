@@ -65,8 +65,8 @@ namespace WhoseShoutWebService.Controllers
                 Email = shoutUser.Email,
                 UserName = shoutUser.UserName,
                 AuthType = AuthType.Facebook,
-                ShoutSocialID = shoutUser.FacebookID
-                
+                ShoutSocialID = shoutUser.FacebookID,
+                AvatarUrl = shoutUser.AvatarUrl                
             };
 
             return Ok(ret);
