@@ -28,6 +28,7 @@ namespace WhoseShoutWebService.Controllers
                                   Category = s.Category,
                                   Name = s.Name,
                                   TrackCost = s.TrackCost,
+                                  ShoutGroupIconIndex = s.GroupIcon.ShoutIconIndex,
                                   Users = (from u in db.ShoutUsers
                                            where s.ShoutUsers.Any(sh => sh.ID == u.ID)
                                            select new ShoutUserDto()
@@ -54,7 +55,7 @@ namespace WhoseShoutWebService.Controllers
         [ResponseType(typeof(ShoutGroupDto))]
         public IQueryable<ShoutGroupDto> GetShoutGroupForUser(Guid shoutUserId)
         {
-            var shoutGroups = from s in db.ShoutGroups
+            var shoutGroups = from s in db.ShoutGroups.Include(sgi => sgi.GroupIcon)
                               from su in s.ShoutUsers
                               where su.ID == shoutUserId
                               select new ShoutGroupDto()
@@ -63,6 +64,7 @@ namespace WhoseShoutWebService.Controllers
                                   Category = s.Category,
                                   Name = s.Name,
                                   TrackCost = s.TrackCost,
+                                  ShoutGroupIconIndex = s.GroupIcon.ShoutIconIndex,
                                   Shouts = (from shout in db.Shouts
                                             where s.Shouts.Any(sh => sh.ID == shout.ID)
                                             orderby shout.PurchaseTimeUtc descending
@@ -96,7 +98,7 @@ namespace WhoseShoutWebService.Controllers
         [ResponseType(typeof(ShoutGroupDto))]
         public IHttpActionResult GetShoutGroup(Guid id)
         {
-            var shoutGroup = from s in db.ShoutGroups
+            var shoutGroup = from s in db.ShoutGroups.Include(sgi => sgi.GroupIcon)
                              where s.ID == id
                              select new ShoutGroupDto()
                              {
@@ -104,6 +106,7 @@ namespace WhoseShoutWebService.Controllers
                                  Category = s.Category,
                                  Name = s.Name,
                                  TrackCost = s.TrackCost,
+                                 ShoutGroupIconIndex = s.GroupIcon != null ? s.GroupIcon.ShoutIconIndex : -1,
                                  Shouts = (from shout in db.Shouts
                                            where s.Shouts.Any(sh => sh.ID == shout.ID)
                                            orderby shout.PurchaseTimeUtc descending
@@ -151,14 +154,29 @@ namespace WhoseShoutWebService.Controllers
                 return BadRequest();
             }
 
-            ShoutGroup shoutGroup = db.ShoutGroups.FirstOrDefault(x => x.ID == id);
+            ShoutGroup shoutGroup = db.ShoutGroups.Include(sgi => sgi.GroupIcon).FirstOrDefault(x => x.ID == id);
 
+            db.ShoutGroups.Attach(shoutGroup);
 
             shoutGroup.Name = shoutGroupDto.Name;
             shoutGroup.TrackCost = shoutGroupDto.TrackCost;
             shoutGroup.Category = shoutGroupDto.Category;
 
-            db.ShoutGroups.Attach(shoutGroup);
+
+            if (shoutGroup.GroupIcon == null)
+            {
+                ShoutGroupIcon sgi = new ShoutGroupIcon()
+                {
+                    ShoutGroup = shoutGroup,
+                    ShoutIconIndex = shoutGroupDto.ShoutGroupIconIndex,
+                };
+                shoutGroup.GroupIcon = sgi;
+            }
+            else
+            {
+                shoutGroup.GroupIcon.ShoutIconIndex = shoutGroupDto.ShoutGroupIconIndex;
+            }
+
 
             //var shoutUsersForGroup = new List<ShoutUser>();
             //foreach (var shoutGroupUser in shoutGroupDto.Users)
@@ -245,6 +263,7 @@ namespace WhoseShoutWebService.Controllers
                 ShoutUsers = new List<ShoutUser>()
             };
 
+
             var shoutUsersForGroup = new List<ShoutUser>();
             foreach (var shoutGroupUser in shoutGroupDto.Users)
             {
@@ -287,6 +306,14 @@ namespace WhoseShoutWebService.Controllers
             {
                 db.ShoutUsers.Attach(sh);
             }
+
+            ShoutGroupIcon shoutGroupIcon = new ShoutGroupIcon()
+            {
+                ShoutGroupID = shoutGro.ID,
+                ShoutGroup = shoutGro,
+                ShoutIconIndex = shoutGroupDto.ShoutGroupIconIndex
+            };
+            shoutGro.GroupIcon = shoutGroupIcon;
 
             db.ShoutGroups.Add(shoutGro);
 

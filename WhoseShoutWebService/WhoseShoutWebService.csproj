@@ -31,7 +31,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WebService</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -189,6 +189,9 @@
     <Compile Include="..\..\WhoseShoutPrismForms\WhoseShoutFormsPrism\WhoseShoutFormsPrism\Models\ShoutGroup.cs">
       <Link>Models\ShoutGroup.cs</Link>
     </Compile>
+    <Compile Include="..\..\WhoseShoutPrismForms\WhoseShoutFormsPrism\WhoseShoutFormsPrism\Models\ShoutGroupIcon.cs">
+      <Link>Models\ShoutGroupIcon.cs</Link>
+    </Compile>
     <Compile Include="..\..\WhoseShoutPrismForms\WhoseShoutFormsPrism\WhoseShoutFormsPrism\Models\ShoutUser.cs">
       <Link>Models\ShoutUser.cs</Link>
     </Compile>
@@ -250,6 +253,10 @@
     <Compile Include="Migrations\201705281214166_avatar.Designer.cs">
       <DependentUpon>201705281214166_avatar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705291000232_ShoutIcon.cs" />
+    <Compile Include="Migrations\201705291000232_ShoutIcon.Designer.cs">
+      <DependentUpon>201705291000232_ShoutIcon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -287,9 +294,8 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <None Include="Properties\PublishProfiles\WhoseShoutWebService20170507113450.pubxml" />
-    <None Include="Properties\PublishProfiles\WhoseShoutWebService20170509074122 - Web Deploy %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\WhoseShoutWebService20170509074122 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\DEBUG.pubxml" />
+    <None Include="Properties\PublishProfiles\WhoseShoutWebService20170509074122 - RELEASE.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -340,6 +346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705281214166_avatar.resx">
       <DependentUpon>201705281214166_avatar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705291000232_ShoutIcon.resx">
+      <DependentUpon>201705291000232_ShoutIcon.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

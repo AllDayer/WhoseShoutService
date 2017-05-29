@@ -71,6 +71,13 @@ namespace WhoseShoutWebService.Migrations
                 Shouts = new List<Shout>()
             };
 
+            ShoutGroupIcon icon = new ShoutGroupIcon()
+            {
+                ShoutGroupID = shoutGroup2.ID,
+                ShoutIconIndex = 0,
+                ShoutGroup = shoutGroup2
+            };
+
             shout.ShoutUser = user1;
             shout.ShoutGroup = shoutGroup;
 
